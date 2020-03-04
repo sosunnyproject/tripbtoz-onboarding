@@ -9,7 +9,9 @@ const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 const { Title, Paragraph, Text } = Typography;
 
-const BasicLayout: React.FC = props => {
+
+const App: React.FC = props => {
+
   return (
     <div className={styles.normal}>
       <header className={styles.title}> 
@@ -28,22 +30,17 @@ const BasicLayout: React.FC = props => {
             style={{ height: '100%', borderRight: 0 }}
           > 
             <Menu.Item key="1">
-              <Link to="/basic"> 
-                <EditOutlined /> 기본 정보
-              </Link>
+              <Link to="/basic"> <EditOutlined /> 기본 정보 </Link>
             </Menu.Item>
             <Menu.Item key="2"> 
-              <Link to="/totalprice"> 
-              <MoneyCollectOutlined /> 전체 판매가 확인
-              </Link>
+              <Link to="/totalprice"> <MoneyCollectOutlined /> 전체 판매가 확인 </Link>
             </Menu.Item>
             
             <SubMenu
               key="sub1"
               title={
                 <span>
-                  <AppstoreOutlined />
-                  객실 설정
+                  <AppstoreOutlined /> 객실 설정
                 </span>
               }
             >
@@ -83,4 +80,4 @@ const BasicLayout: React.FC = props => {
   );
 };
 
-export default BasicLayout;
+export default App;
