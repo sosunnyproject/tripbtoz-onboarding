@@ -1,25 +1,24 @@
 import React from 'react';
 import styles from './index.css';
 import { LogoutOutlined } from '@ant-design/icons';
-
-import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography} from 'antd';
 import { EditOutlined, MoneyCollectOutlined , AppstoreOutlined, FireOutlined, DatabaseOutlined, UsergroupAddOutlined} from '@ant-design/icons';
 import Link from "umi/link";
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
+const { Title, Paragraph, Text } = Typography;
 
 const BasicLayout: React.FC = props => {
   return (
     <div className={styles.normal}>
       <header className={styles.title}> 
-        <a href="/"><h1 className={styles.logo}>Tripbtoz</h1></a>
+        <a href="/basic"> <Title id={styles.logo}> Tripbtoz </Title> </a>
         <a href="" className={styles.logout}>
-          <LogoutOutlined style={{padding: '10px'}} />
-          로그아웃
+          <LogoutOutlined style={{padding: '10px'}} /> 로그아웃
         </a>
       </header>
+
       <Layout style={{margin: '24px'}}>
         <Sider width={200}>
           <Menu
@@ -34,7 +33,11 @@ const BasicLayout: React.FC = props => {
               </Link>
             </Menu.Item>
             <Menu.Item key="2"> 
-              <MoneyCollectOutlined /> 전체 판매가 확인</Menu.Item>
+              <Link to="/totalprice"> 
+              <MoneyCollectOutlined /> 전체 판매가 확인
+              </Link>
+            </Menu.Item>
+            
             <SubMenu
               key="sub1"
               title={
@@ -44,23 +47,37 @@ const BasicLayout: React.FC = props => {
                 </span>
               }
             >
-              <Menu.Item key="3">디럭스 트윈룸</Menu.Item>
-              <Menu.Item key="4">빌라, 침실 3개</Menu.Item>
+              <Menu.Item key="3"><Link to="/room">디럭스 트윈룸</Link></Menu.Item> 
+              <Menu.Item key="4"><Link to="/room">빌라, 침실 3개</Link></Menu.Item>
             </SubMenu>
 
-            <Menu.Item key="5"> <FireOutlined /> 프로모션 설정</Menu.Item>
-            <Menu.Item key="6"> <DatabaseOutlined /> 요금 및 일괄 수정</Menu.Item>
-            <Menu.Item key="7"> <DatabaseOutlined /> 재고 일괄 수정</Menu.Item>
-            <Menu.Item key="8"> <UsergroupAddOutlined />예약 관리</Menu.Item>
-            <Menu.Item key="9"> <UsergroupAddOutlined /> 온라인 담당자</Menu.Item>
-            <Menu.Item key="10"> <UsergroupAddOutlined />회원 관리</Menu.Item>
+            <Menu.Item key="5"> 
+              <Link to="/promotion"> <FireOutlined /> 프로모션 설정  </Link>
+            </Menu.Item>
+            <Menu.Item key="6"> 
+              <Link to="/editprice"> <DatabaseOutlined /> 요금 및 일괄 수정 </Link>
+            </Menu.Item>
+            <Menu.Item key="7"> 
+              <Link to="/editstorage"> <DatabaseOutlined /> 재고 일괄 수정 </Link>
+            </Menu.Item>
+            <Menu.Item key="8"> 
+              <Link to="/reservation"> <UsergroupAddOutlined />예약 관리 </Link>
+            </Menu.Item>
+            <Menu.Item key="9"> 
+              <Link to="/onlinemanager"> <UsergroupAddOutlined /> 온라인 담당자 </Link>
+            </Menu.Item>
+            <Menu.Item key="10"> 
+              <Link to="/edituser"> <UsergroupAddOutlined />회원 관리 </Link>
+            </Menu.Item>
           </Menu>
         </Sider>
+
         <Layout className={styles.contentLayout}>
           <Content className={styles.contentbg}>
-            {props.children}
+            <Text> {props.children} </Text>
           </Content>
         </Layout>
+
       </Layout>
     </div>
   );

@@ -9,10 +9,7 @@ export default function() {
   return (
     <>
       <div className={styles.normal}>
-        <h1>Page users</h1>
-        <button onClick={() => {router.goBack();}}> 
-        go back
-        </button>
+        <h1>기본 정보</h1>
       </div>
     </>
   );

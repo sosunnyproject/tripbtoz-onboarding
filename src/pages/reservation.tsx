@@ -9,7 +9,7 @@ export default function() {
   return (
     <>
       <div className={styles.normal}>
-        <h1>전체 판매가 확인</h1>
+        <h1>예약 관리</h1>
       </div>
     </>
   );

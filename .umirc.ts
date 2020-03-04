@@ -10,7 +10,14 @@ const config: IConfig =  {
       routes: [
         { path: '/', component: '../pages/index' },
         { path: '/basic', component: '../pages/basic' },
-        { path: '/totalprice', component: '../pages/totalprice' }
+        { path: '/editprice', component: '../pages/editprice' },
+        { path: '/editstorage', component: '../pages/editstorage' },
+        { path: '/onlinemanager', component: '../pages/onlinemanager' },
+        { path: '/promotion', component: '../pages/promotion' },
+        { path: '/reservation', component: '../pages/reservation' },
+        { path: '/room', component: '../pages/room' },
+        { path: '/totalprice', component: '../pages/totalprice' },
+        { path: '/edituser', component: '../pages/edituser' },
       ]
     }
   ],

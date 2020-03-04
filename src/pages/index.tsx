@@ -13,7 +13,7 @@ const { Content, Sider } = Layout;
 export default function() {
   return (
     <div className={styles.normal}>
-          Content
+          기본 정보
     </div>
   );
 }
