@@ -1,9 +1,6 @@
-import router from 'umi/router';
 import styles from './index.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import Link from "umi/link";
 import { DatePicker, InputNumber } from 'antd';
 import moment from 'moment';
 
@@ -65,8 +62,6 @@ class TotalPrice extends React.Component<Props, State> {
       </div>
     );
   }
-
-
 }
 
 export default TotalPrice;
