@@ -5,12 +5,13 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import Link from "umi/link";
 
-export default function() {
-  return (
-    <>
+class Room extends React.Component {
+  render() {
+    return (
       <div className={styles.normal}>
         <h1>객실 설정</h1>
       </div>
-    </>
-  );
+    );
+  }
 }
+export default Room;
