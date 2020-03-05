@@ -25,7 +25,6 @@ class TotalPrice extends React.Component<Props, State> {
   };
 
   calendarChange = (e:any, days: number): void => {
-    console.log("calendarChange called");
     if (e == null) {
       return;
     } else {
@@ -36,14 +35,12 @@ class TotalPrice extends React.Component<Props, State> {
   }
 
   daysChange = (len: any):void => {
-    console.log("daysChange called");
     this.setState({duration: len});
     this.dateCalculate(this.state.startDate, len);
   }
 
   buttonChange = (type: string): void => {
-    console.log("current startDate: " , this.state.startDate);
-    const current = moment(this.state.startDate);  // convert from string to moment
+    const current = moment(this.state.startDate);
     let newStart;
     if (type === 'backward'){
       newStart = current.subtract(1, 'days').format('YYYY-MM-DD');
@@ -55,11 +52,7 @@ class TotalPrice extends React.Component<Props, State> {
   }
 
   dateCalculate = (start:any, len:any):void => {
-    console.log("dateCalculate called");
-    console.log("startDate input: " , start);
-    console.log("duration input", len);
-
-    let current = moment(start);  // convert from string to moment
+    let current = moment(start); 
     let endDate = current.add(len - 1, 'days').format('YYYY-MM-DD');
     console.log(endDate);
     this.setState(() => ({ endDate: endDate }));
@@ -68,10 +61,11 @@ class TotalPrice extends React.Component<Props, State> {
   render() {
     return (
       <div className={styles.normal}>
-        <span style={{"margin": "5px"}}>기준일</span>
+        <span style={{"margin": "5px"}}>체크인 기준</span>
         <DatePicker value = {moment(this.state.startDate)} onChange={(e) => this.calendarChange(e, this.state.duration)} />
         <Button type="primary" size="large" onClick={() => this.buttonChange('backward')}> <LeftOutlined /> Backward </Button> 
         <Button type="primary" size="large" onClick={() => this.buttonChange('forward')}> <RightOutlined /> Forward </Button> 
+        <span style={{"margin": "5px"}}>숙박일수</span>
         <InputNumber min={1} defaultValue={1} onChange={this.daysChange} />
         <div>
           {this.state.startDate} ~ {this.state.endDate}
