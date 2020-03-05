@@ -13,7 +13,6 @@ interface Props {
 }
 
 interface State {
-    selectedDate: any,
     startDate: string;
     endDate: string;
     duration: number;
@@ -23,48 +22,34 @@ class TotalPrice extends React.Component<Props, State> {
   state:State = {
     startDate: '',
     endDate: '',
-    duration: 1,
-    selectedDate: null
+    duration: 1
   };
 
   calendarChange = (e:any, days: number): void => {
     console.log("calendarChange called");
-    // console.log(e);
     if (e == null) {
       return;
     } else {
       let startDate = moment(e).format(dateFormat);  // string YYYY-MM-DD
       this.setState({ startDate: startDate });
-
-
-
-      let newDate = e.clone();
-      newDate = newDate.add(this.state.duration - 1, 'days').calendar(); // type: string
-      newDate = moment(moment(newDate).toDate()).format('YYYY-MM-DD');  // change format
-      this.setState(() => ({ endDate: newDate }));
-
-      this.dateCalculate(newDate, this.state.duration);
-
+      this.dateCalculate(e, this.state.duration);
     }
   }
 
-  daysChange = (value: any):void => {
+  daysChange = (len: any):void => {
     console.log("daysChange called");
-    // this.setState({duration: value});
-    this.setState({duration: value});
-    // console.log("startDate", this.state.startDate);
-
-    let current = moment(this.state.startDate);  // string to moment 
-    let newDate = current.add(value - 1, 'days').calendar(); // type: string
-    newDate = moment(moment(newDate).toDate()).format('YYYY-MM-DD');  // change format
-    this.setState(() => ({ endDate: newDate }));
-    
-    this.dateCalculate(this.state.startDate, value);
+    this.setState({duration: len});
+    this.dateCalculate(this.state.startDate, len);
   }
 
-  dateCalculate = (start:any, days:any):void => {
+  dateCalculate = (start:any, len:any):void => {
     console.log("startDate input: " , start);
-    console.log("duration input", days);
+    console.log("duration input", len);
+
+    let current = moment(start);  // string to moment 
+    let newDate = current.add(len - 1, 'days').calendar(); // type: string
+    newDate = moment(moment(newDate).toDate()).format('YYYY-MM-DD');  // change format
+    this.setState(() => ({ endDate: newDate }));
   }
 
   render() {
