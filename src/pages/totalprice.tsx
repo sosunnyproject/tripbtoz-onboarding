@@ -30,9 +30,9 @@ class TotalPrice extends React.Component<Props, State> {
     if (e == null) {
       return;
     } else {
-      let startDate = moment(e).format(dateFormat);  // string YYYY-MM-DD
+      let startDate = moment(e).format(dateFormat);
       this.setState({ startDate: startDate });
-      this.dateCalculate(e, this.state.duration);
+      this.dateCalculate(startDate, this.state.duration);
     }
   }
 
@@ -43,27 +43,26 @@ class TotalPrice extends React.Component<Props, State> {
   }
 
   dateCalculate = (start:any, len:any):void => {
+    console.log("dateCalculate called");
     console.log("startDate input: " , start);
     console.log("duration input", len);
 
-    let current = moment(start);  // string to moment 
-    let newDate = current.add(len - 1, 'days').calendar(); // type: string
-    newDate = moment(moment(newDate).toDate()).format('YYYY-MM-DD');  // change format
-    this.setState(() => ({ endDate: newDate }));
+    let current = moment(start);  // convert from string to moment
+    let endDate = current.add(len - 1, 'days').calendar(); // return type: string
+    endDate = moment(moment(endDate).toDate()).format('YYYY-MM-DD');  // convert to moment, change format
+    this.setState(() => ({ endDate: endDate }));
   }
 
   render() {
     return (
-      <>
-        <div className={styles.normal}>
-          <span style={{"margin": "5px"}}>기준일</span>
-          <DatePicker onChange={(e) => this.calendarChange(e, this.state.duration)} />
-          <InputNumber min={1} defaultValue={1} onChange={this.daysChange} />
-          <div>
-            {this.state.startDate} ~ {this.state.endDate}
-          </div>
+      <div className={styles.normal}>
+        <span style={{"margin": "5px"}}>기준일</span>
+        <DatePicker onChange={(e) => this.calendarChange(e, this.state.duration)} />
+        <InputNumber min={1} defaultValue={1} onChange={this.daysChange} />
+        <div>
+          {this.state.startDate} ~ {this.state.endDate}
         </div>
-      </>
+      </div>
     );
   }
 
