@@ -1,8 +1,9 @@
 import styles from './index.css';
 import React from 'react';
 import 'antd/dist/antd.css';
-import { DatePicker, InputNumber } from 'antd';
-import moment from 'moment';
+import { DatePicker, InputNumber, Button, Radio } from 'antd';
+import {LeftOutlined, RightOutlined } from '@ant-design/icons';
+import moment, { isMoment } from 'moment';
 
 const dateFormat = 'YYYY-MM-DD';
 
@@ -13,12 +14,13 @@ interface State {
     startDate: string;
     endDate: string;
     duration: number;
+    
 }
 
 class TotalPrice extends React.Component<Props, State> {
   state:State = {
-    startDate: '',
-    endDate: '',
+    startDate: moment().format('YYYY-MM-DD'),
+    endDate: moment().format('YYYY-MM-DD'),
     duration: 1
   };
 
@@ -39,14 +41,27 @@ class TotalPrice extends React.Component<Props, State> {
     this.dateCalculate(this.state.startDate, len);
   }
 
+  buttonChange = (type: string): void => {
+    console.log("current startDate: " , this.state.startDate);
+    const current = moment(this.state.startDate);  // convert from string to moment
+    let newStart;
+    if (type === 'backward'){
+      newStart = current.subtract(1, 'days').format('YYYY-MM-DD');
+    } else if (type === 'forward') {
+      newStart = current.add(1, 'days').format('YYYY-MM-DD');
+    }
+    this.setState({ startDate: String(newStart)});
+    this.dateCalculate(newStart, this.state.duration);
+  }
+
   dateCalculate = (start:any, len:any):void => {
     console.log("dateCalculate called");
     console.log("startDate input: " , start);
     console.log("duration input", len);
 
     let current = moment(start);  // convert from string to moment
-    let endDate = current.add(len - 1, 'days').calendar(); // return type: string
-    endDate = moment(moment(endDate).toDate()).format('YYYY-MM-DD');  // convert to moment, change format
+    let endDate = current.add(len - 1, 'days').format('YYYY-MM-DD');
+    console.log(endDate);
     this.setState(() => ({ endDate: endDate }));
   }
 
@@ -54,7 +69,9 @@ class TotalPrice extends React.Component<Props, State> {
     return (
       <div className={styles.normal}>
         <span style={{"margin": "5px"}}>기준일</span>
-        <DatePicker onChange={(e) => this.calendarChange(e, this.state.duration)} />
+        <DatePicker value = {moment(this.state.startDate)} onChange={(e) => this.calendarChange(e, this.state.duration)} />
+        <Button type="primary" size="large" onClick={() => this.buttonChange('backward')}> <LeftOutlined /> Backward </Button> 
+        <Button type="primary" size="large" onClick={() => this.buttonChange('forward')}> <RightOutlined /> Forward </Button> 
         <InputNumber min={1} defaultValue={1} onChange={this.daysChange} />
         <div>
           {this.state.startDate} ~ {this.state.endDate}
