@@ -55,7 +55,6 @@ class TotalPrice extends React.Component<{}, State> {
   dateCalculate = (start:any, len:any):void => {
     let current = moment(start); 
     let endDate = current.add(len - 1, 'days').format('YYYY-MM-DD');
-    console.log(endDate);
     this.setState(() => ({ endDate: endDate }));
   }
 

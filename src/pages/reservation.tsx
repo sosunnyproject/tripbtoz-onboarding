@@ -1,5 +1,5 @@
 import styles from './index.css';
-import React, {useState} from 'react';
+import React from 'react';
 import { AutoComplete } from 'antd';
 
 interface State {
@@ -32,8 +32,8 @@ class Reservation extends React.Component<{}, State> {
       });
   };
 
-  onSelect = (value, option):void => {
-    this.setState({ selectedData: JSON.stringify(option.data, null, '\t')})
+  onSelect = (value: any, option: any):void => {
+    this.setState({ selectedData: JSON.stringify(option.data, null, 2)})
   }
   
   render() {
@@ -43,10 +43,10 @@ class Reservation extends React.Component<{}, State> {
           <h2>지역 검색 </h2>
           <AutoComplete 
           options={this.state.dataSrc}
-          style={{ width: 200 }}
+          style={{ width: 300 }}
           onSearch = {this.onSearch}
           onSelect={this.onSelect}
-          placeholder="지역 이름을 검색하세요">
+          placeholder="지역명을 입력하세요">
           </AutoComplete>
           <div>
             <pre>
