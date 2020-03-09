@@ -7,9 +7,6 @@ import moment, { isMoment } from 'moment';
 
 const dateFormat = 'YYYY-MM-DD';
 
-interface Props {
-}
-
 interface State {
     startDate: string;
     endDate: string;
@@ -17,13 +14,14 @@ interface State {
     
 }
 
-class TotalPrice extends React.Component<Props, State> {
+class TotalPrice extends React.Component<{}, State> {
   state:State = {
     startDate: moment().format('YYYY-MM-DD'),
     endDate: moment().format('YYYY-MM-DD'),
     duration: 1
   };
 
+  // 달력 버튼
   calendarChange = (e:any, days: number): void => {
     if (e == null) {
       return;
@@ -34,11 +32,13 @@ class TotalPrice extends React.Component<Props, State> {
     }
   }
 
+  // 숙박일수 버튼
   daysChange = (len: any):void => {
     this.setState({duration: len});
     this.dateCalculate(this.state.startDate, len);
   }
 
+  // 날짜 backward forward 버튼
   buttonChange = (type: string): void => {
     const current = moment(this.state.startDate);
     let newStart;
@@ -51,6 +51,7 @@ class TotalPrice extends React.Component<Props, State> {
     this.dateCalculate(newStart, this.state.duration);
   }
 
+  // 시작~끝 날짜 계산 업데이트
   dateCalculate = (start:any, len:any):void => {
     let current = moment(start); 
     let endDate = current.add(len - 1, 'days').format('YYYY-MM-DD');

@@ -37,6 +37,12 @@ const config: IConfig =  {
       },
     }],
   ],
+  proxy: {
+    "/ajax": {
+      "target": "https://www.tripbtoz.com/",
+      "changeOrigin": true
+    }
+  }
 }
 
 export default config;
