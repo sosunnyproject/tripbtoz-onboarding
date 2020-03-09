@@ -43,7 +43,7 @@ class Reservation extends React.Component<{}, State> {
           <h2>지역 검색 </h2>
           <AutoComplete 
           options={this.state.dataSrc}
-          style={{ width: 300 }}
+          style={{ width: 500 }}
           onSearch = {this.onSearch}
           onSelect={this.onSelect}
           placeholder="지역명을 입력하세요">
