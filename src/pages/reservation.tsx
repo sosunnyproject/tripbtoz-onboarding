@@ -3,25 +3,22 @@ import React, {useState} from 'react';
 import { AutoComplete } from 'antd';
 
 interface State {
-    keyword: string,
     dataSrc: Array<any>,
-    selectedData: any
-  }
+    selectedData: string
+}
 
-  class Reservation extends React.Component<{}, State> {
+class Reservation extends React.Component<{}, State> {
   state:State = {
-    keyword: '',
     dataSrc: [],
     selectedData: ''
   };
 
-  onSearch = async (searchText: string):Promise<void> => {
+  onSearch = (searchText: string):void => {
     const keyword = encodeURI(searchText);
     const searchURL = decodeURI(`/ajax/autocomplete?name=${keyword}`);
     let resultArray:any[] = [];
 
-    const searchJson = 
-      fetch(searchURL
+    fetch(searchURL
         ).then( (response):any => {
           return response.json();
         }).then ( (json):void=> {
