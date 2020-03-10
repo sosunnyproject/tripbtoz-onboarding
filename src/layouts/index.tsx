@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, ReactComponentElement } from 'react';
 import styles from './index.css';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Typography} from 'antd';
@@ -9,9 +9,14 @@ const { SubMenu } = Menu;
 const { Content, Sider, Header } = Layout;
 const { Title, Text } = Typography;
 
+interface Props extends ReactElement {
+}
 
-const App: React.FC = props => {
-  return (
+class Basic extends React.Component<Props> {
+  render() {
+    const props = this.props
+  
+    return (
       <Layout>
         <Header className={styles.title}> 
           <a href="/basic"> <Title id={styles.logo}> Tripbtoz </Title> </a>
@@ -74,7 +79,8 @@ const App: React.FC = props => {
           </Layout>
         </Layout>
       </Layout>
-  );
+    );
+  }
 };
 
-export default App;
+export default Basic;

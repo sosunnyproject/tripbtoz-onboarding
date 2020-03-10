@@ -11,64 +11,57 @@ interface State {
     startDate: string;
     endDate: string;
     duration: number;
-    
 }
 
 class TotalPrice extends React.Component<{}, State> {
-  state:State = {
+  state = {
     startDate: moment().format('YYYY-MM-DD'),
     endDate: moment().format('YYYY-MM-DD'),
     duration: 1
   };
 
-  // 달력 버튼
-  calendarChange = (e:any, days: number): void => {
+  // 달력 버튼 handleCalendarChange
+  handleCalendarChange = (e:any, days: number): void => {
     if (e == null) {
       return;
     } else {
       let startDate = moment(e).format(dateFormat);
       this.setState({ startDate: startDate });
-      this.dateCalculate(startDate, this.state.duration);
+      // this.dateCalculate(startDate, this.state.duration);
     }
   }
 
-  // 숙박일수 버튼
-  daysChange = (len: any):void => {
+  // 숙박일수 버튼 
+  handleDaysChange = (len: any):void => {
     this.setState({duration: len});
-    this.dateCalculate(this.state.startDate, len);
   }
 
   // 날짜 backward forward 버튼
-  buttonChange = (type: string): void => {
+  handleButtonChange = (type: string): void => {
     const current = moment(this.state.startDate);
     let newStart;
     if (type === 'backward'){
       newStart = current.subtract(1, 'days').format('YYYY-MM-DD');
-    } else if (type === 'forward') {
+    } else {
       newStart = current.add(1, 'days').format('YYYY-MM-DD');
     }
-    this.setState({ startDate: String(newStart)});
-    this.dateCalculate(newStart, this.state.duration);
-  }
-
-  // 시작~끝 날짜 계산 업데이트
-  dateCalculate = (start:any, len:any):void => {
-    let current = moment(start); 
-    let endDate = current.add(len - 1, 'days').format('YYYY-MM-DD');
-    this.setState(() => ({ endDate: endDate }));
+    this.setState({ startDate: newStart});
   }
 
   render() {
+    const current = moment(this.state.startDate); 
+    const endDate = current.add(this.state.duration - 1, 'days').format('YYYY-MM-DD');
+
     return (
       <div className={styles.normal}>
         <span style={{"margin": "5px"}}>체크인 기준</span>
-        <DatePicker value = {moment(this.state.startDate)} onChange={(e) => this.calendarChange(e, this.state.duration)} />
-        <Button type="primary" size="large" onClick={() => this.buttonChange('backward')}> <LeftOutlined /> Backward </Button> 
-        <Button type="primary" size="large" onClick={() => this.buttonChange('forward')}> <RightOutlined /> Forward </Button> 
+        <DatePicker value = {moment(this.state.startDate)} onChange={(e) => this.handleCalendarChange(e, this.state.duration)} />
+        <Button type="primary" size="large" onClick={() => this.handleButtonChange('backward')}> <LeftOutlined /> Backward </Button> 
+        <Button type="primary" size="large" onClick={() => this.handleButtonChange('forward')}> <RightOutlined /> Forward </Button> 
         <span style={{"margin": "5px"}}>숙박일수</span>
-        <InputNumber min={1} defaultValue={1} onChange={this.daysChange} />
+        <InputNumber min={1} defaultValue={1} onChange={this.handleDaysChange} />
         <div>
-          {this.state.startDate} ~ {this.state.endDate}
+          {this.state.startDate} ~ {endDate}
         </div>
       </div>
     );

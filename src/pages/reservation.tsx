@@ -1,35 +1,47 @@
+import _ from 'lodash'
 import styles from './index.css';
 import React from 'react';
 import { AutoComplete } from 'antd';
 
 interface State {
+    keyword: string,
     dataSrc: Array<any>,
     selectedData: string
 }
 
 class Reservation extends React.Component<{}, State> {
-  state:State = {
+  state = {
+    keyword: '',
     dataSrc: [],
     selectedData: ''
   };
 
-  onSearch = (searchText: string):void => {
-    const keyword = encodeURI(searchText);
-    const searchURL = decodeURI(`/ajax/autocomplete?name=${keyword}`);
-    let resultArray:any[] = [];
+  // text = ''
 
-    fetch(searchURL
-        ).then( (response):any => {
-          return response.json();
-        }).then ( (json):void=> {
-          if(json.data) {                
-            let len = (json.data).length;
-            for (let i = 0; i < len; i++) {
-              resultArray.push({data: json.data[i], value: json.data[i]['name']});
-            }
-          }
-          this.setState({ dataSrc: resultArray});
-      });
+  // handleSearch = (searchText: string) => {
+  //   console.log(1)
+  //   this.text = searchText;
+  //   _.debounce(this.onSearch, 50)
+  // }
+
+  onSearch = async (searchText: string):Promise<void> => {
+    const keyword = window.encodeURI(searchText);
+    const searchURL = decodeURI(`/ajax/autocomplete?name=${keyword}`);
+    this.setState({keyword: searchText});
+
+    const json = await fetch(searchURL).then( (response):any => { return response.json();})
+    if (!json.data) {
+      this.setState({
+        dataSrc: []
+      })
+      return
+    }
+ 
+    const resultArray = json.data.map((element:any) => ({
+        data: element,
+        value: element.name
+      }))
+    this.setState({ dataSrc: resultArray});
   };
 
   onSelect = (value: any, option: any):void => {
